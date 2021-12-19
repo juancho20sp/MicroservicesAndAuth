@@ -13,7 +13,7 @@ router.put('/', upsert);
 
 
 // INTERNAL FUNCTIONS
-const list = (req, res) => {
+function list(req, res) {
     Controller.list()
     .then(list => {
         response.success(req, res, list, 200);
@@ -23,7 +23,7 @@ const list = (req, res) => {
     })
 }
 
-const get = (req, res) => {
+function get(req, res) {
     Controller.get(req.params.id)
     .then(user => {
         response.success(req, res, user, 200);
@@ -33,7 +33,7 @@ const get = (req, res) => {
     })
 }
 
-const upsert = (req, res) => {
+function upsert(req, res) {
     Controller.upsert(req.body)
     .then(user => {
         response.success(req, res, user, 201);

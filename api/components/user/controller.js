@@ -1,4 +1,5 @@
-const nanoid = require('nanoid');
+const { nanoid } = require('nanoid');
+const auth = require('../auth');
 const TABLE = 'user';
 
 module.exports = function(injectedStore){
@@ -16,14 +17,25 @@ module.exports = function(injectedStore){
         return store.get(TABLE, id);
     }
 
-    function upsert(data) {
+    async function upsert(data) {
         const user = {
-            name: data.name
+            name: data.name,
+            username: data.username
         }
 
         user.id = data.id ? data.id : nanoid();
 
-        return store.upsert(TABLE, data);
+        // Si hay contraseña o nombre de usuario -> estamos creando
+        if (data.password || data.username) {
+            await auth.upsert({
+                id: user.id,
+                username: user.username,
+                password: data.password
+            })
+        }
+        
+        // Si hay usuario y contraseña -> estamos modificando la contraseña del usuario
+        return store.upsert(TABLE, user);
     }
 
     function remove(id){

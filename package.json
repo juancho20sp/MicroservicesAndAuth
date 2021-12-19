@@ -9,8 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
     "nanoid": "^3.1.30",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "swagger-ui-express": "^4.3.0"
   }
 }
